@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import './Shop.css';
+import Cart from '../Cart/Cart';
+import { addToDB, getStoredCart } from '../../utilities/fakeDB';
 
 const Shop = () => {
 
     const [products, setProducts] = useState([]);
     const [cart, setCart] = useState([]);
-    const [total, setTotal] = useState(0);
 
     useEffect(() => {
         fetch('products.json')
@@ -14,13 +15,36 @@ const Shop = () => {
             .then(data => setProducts(data));
     }, []);
 
-    const handleCart = (product) => {
-        // console.log(product);
-        const newCart = [...cart, product];
+
+    useEffect(() => {
+        const storedCart = getStoredCart();
+        const savedCart = [];
+        for (const id in storedCart) {
+            const addedProduct = products.find(product => product.id === id);
+            if (addedProduct) {
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);
+            }
+        }
+        setCart(savedCart);
+    }, [products]);
+
+    const handleCart = (selectedProduct) => {
+        let newCart = [];
+        const exist = cart.find(product => selectedProduct.id === product.id);
+        if (!exist) {
+            selectedProduct.quantity = 1;
+            newCart = [...cart, selectedProduct];
+        }
+        else {
+            const notExist = cart.filter(product => selectedProduct.id !== product.id);
+            exist.quantity += 1;
+            newCart = [...notExist, exist];
+        }
+
         setCart(newCart);
-        
-        const newTotal = total + product.price;
-        setTotal(newTotal);
+        addToDB(selectedProduct.id);
     }
 
     return (
@@ -30,17 +54,14 @@ const Shop = () => {
                     products.map(product => <Product
                         key={product.id}
                         product={product}
-                        handleCart = {handleCart}
+                        handleCart={handleCart}
                     ></Product>)
                 }
             </div>
             <div className="cart">
-                <h3>Your Cart</h3>
-                <p>Total Item:  {cart.length}</p>
-                <p>Total Price: {total}</p>
-                {
-                    cart.map(c => <p>{c.name}</p>)
-                }
+                <Cart
+                    cart={cart}
+                ></Cart>
             </div>
         </div>
     );
