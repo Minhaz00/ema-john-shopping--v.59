@@ -2,3 +2,16 @@
     position: sticky;
     top: 20px;
 }
+
+.x-mark {
+    color: white;
+    padding-right: 10px;
+}
+
+.delete-all-btn {
+    border: 0;
+    background-color: rgb(255, 88, 59);
+    padding: 10px 15px;
+    color: white;
+    border-radius: 5px;
+}

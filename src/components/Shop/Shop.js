@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Product from '../Product/Product';
 import './Shop.css';
 import Cart from '../Cart/Cart';
-import { addToDB, getStoredCart } from '../../utilities/fakeDB';
+import { addToDB, deleteShoppingCart, getStoredCart } from '../../utilities/fakeDB';
 import { useLoaderData } from 'react-router-dom';
 
 const Shop = () => {
@@ -49,6 +49,11 @@ const Shop = () => {
         addToDB(selectedProduct.id);
     }
 
+    const handleDeleteCart = () => {
+        setCart([]);
+        deleteShoppingCart();
+    }
+
     return (
         <div className='shop'>
             <div className="products">
@@ -62,6 +67,7 @@ const Shop = () => {
             </div>
             <div className="cart">
                 <Cart
+                    handleDeleteCart={handleDeleteCart}
                     cart={cart}
                 ></Cart>
             </div>

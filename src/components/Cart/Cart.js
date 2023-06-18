@@ -1,13 +1,15 @@
 import React from 'react';
 import './Cart.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 
 const Cart = (props) => {
-    const { cart } = props;
+    const { cart, handleDeleteCart } = props;
 
     let total = 0;
     let shipping = 0;
     let quantity = 0;
-    
+
     for (const product of cart) {
         quantity += product.quantity;
         total += (product.price) * (product.quantity);
@@ -23,6 +25,10 @@ const Cart = (props) => {
             <p>Tax: $ {tax}</p>
             <p>Shipping Cost: $ {shipping}</p>
             <h4>Grand Total: $ {grandTotal.toFixed(2)}</h4>
+            <button className='delete-all-btn' onClick={handleDeleteCart}>
+                <FontAwesomeIcon className='x-mark' icon={faXmark} />
+                Delete Cart
+            </button>
         </div>
     );
 };
