@@ -1,0 +1,44 @@
+.item-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid lightsalmon;
+    border-radius: 8px;
+    margin: 0 20px 10px;
+    padding: 8px;
+    width: 571px;
+}
+
+.about-item {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.about-item p,
+h5 {
+    margin: 0;
+}
+
+.item-image img {
+    width: 91px;
+}
+
+
+.delete-btn {
+    background-color: rgb(255, 199, 199, 0.5);
+    border: 0;
+    padding: 10px;
+    border-radius: 50%;
+}
+
+.delete-btn:hover {
+    background-color: rgb(255, 199, 199, 1);
+}
+
+.delete-icon {
+    color: rgb(235, 64, 34);
+    width: 20px;
+    height: 20px;
+}
