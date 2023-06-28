@@ -36,3 +36,10 @@
     transform: rotate(360deg);
   }
 }
+
+.loading-icon{
+  color:orange;
+  font-size: 70px;
+  display: block;
+  margin: 40px auto;
+}
